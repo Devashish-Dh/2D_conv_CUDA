@@ -1,4 +1,3 @@
-
 #include <cuda_runtime.h>
 #include <cstdio>
 #include <vector>
@@ -9,18 +8,26 @@
 // =============================================================================
 // This is an intentionally inefficient implementation for comparison purposes.
 
-static __device__ __forceinline__ size_t idx3(int batch_index, int row, int col,
-                                               int height, int width) {
-    return static_cast<size_t>(batch_index) * height * width +
-           static_cast<size_t>(row) * width +
-           col;
+static __device__ __forceinline__ size_t idx3(
+                                                int batch_index, 
+                                                int row, 
+                                                int col,
+                                                int height, 
+                                                int width) 
+{
+    return static_cast<size_t>(batch_index) * height * width + static_cast<size_t>(row) * width + col; // converts the 3D coords into the flat array coords. 
+    //(acc to the batch, the row, the col of the input 3d coords)
 }
+
 
 __global__ void kernel_conv2d_baseline(const float* __restrict__ input_images,
                                        const float* __restrict__ kernel,
                                        float* __restrict__ output_images,
-                                       int batch_size, int height, int width,
-                                       int kernel_size) {
+                                       int batch_size, 
+                                       int height, 
+                                       int width,
+                                       int kernel_size) 
+{
     int batch_index = blockIdx.z;
 
     int row = blockIdx.y * blockDim.y + threadIdx.x;  // Note: threadIdx.x for row
@@ -33,17 +40,22 @@ __global__ void kernel_conv2d_baseline(const float* __restrict__ input_images,
     int radius = (kernel_size - 1) / 2;
     float accumulated_value = 0.0f;
 
-    for (int kernel_row = 0; kernel_row < kernel_size; ++kernel_row) {
+    for (int kernel_row = 0; kernel_row < kernel_size; ++kernel_row) 
+    {
         int input_row = row + kernel_row - radius;
+        
         if (input_row < 0 || input_row >= height) continue;
 
-        for (int kernel_col = 0; kernel_col < kernel_size; ++kernel_col) {
+        for (int kernel_col = 0; kernel_col < kernel_size; ++kernel_col) 
+        {
             int input_col = col + kernel_col - radius;
+
             if (input_col < 0 || input_col >= width) continue;
 
-            float input_pixel = input_images[idx3(batch_index, input_row, input_col,
-                                                   height, width)];
+            float input_pixel = input_images[idx3(batch_index, input_row, input_col,height, width)];
+
             float kernel_weight = kernel[kernel_row * kernel_size + kernel_col];
+            
             accumulated_value += input_pixel * kernel_weight;
         }
     }
@@ -51,10 +63,17 @@ __global__ void kernel_conv2d_baseline(const float* __restrict__ input_images,
     output_images[idx3(batch_index, row, col, height, width)] = accumulated_value;
 }
 
-void conv2d_baseline(const float* input, const float* kernel, float* output,
-                     int batch_size, int height, int width, int kernel_size,
+void conv2d_baseline(const float* input, 
+                     const float* kernel, 
+                     float* output,
+                     int batch_size, 
+                     int height, 
+                     int width, 
+                     int kernel_size,
                      cudaStream_t stream) {
+    
     dim3 threads_per_block(16, 16, 1);
+
     dim3 blocks_per_grid(
         (width + threads_per_block.x - 1) / threads_per_block.x,
         (height + threads_per_block.y - 1) / threads_per_block.y,
@@ -95,14 +114,76 @@ void conv2d_baseline(const float* input, const float* kernel, float* output,
 //   reduces the number of memory transactions. Handle tails safely.
 //
 // =============================================================================
+__global__ void kernel_conv2d_variant1(const float* __restrict__ input_images,
+                                       const float* __restrict__ kernel,
+                                       float* __restrict__ output_images,
+                                       int batch_size, 
+                                       int height, 
+                                       int width,
+                                       int kernel_size) 
+{
+    int batch_index = blockIdx.z;
+
+    // due to setting dim 32,8,1. now each thread will go 0 to 31 (rows from input).
+    //so now, we are writing to 32 rows and 1 column of the output array.
+
+    //the reading of the data will now be 
+
+    int row = blockIdx.y * blockDim.y + threadIdx.y;  // Note: threadIdx.y for row              
+    int col = blockIdx.x * blockDim.x + threadIdx.x;  // Note: threadIdx.x for col 
+    //NOW following the Nvidia convention for accessing x,y dims.
+
+    //earlier the thread 0 of a warp was accessing input[0] and thread 1 was accessing input[0 + width] (huge offset)
+    //now adjacent threads are writing to adjacent pixels of the output
 
 
-void conv2d_variant1(const float* input, const float* kernel, float* output,
-                     int batch_size, int height, int width, int kernel_size,
+    if (batch_index >= batch_size || row >= height || col >= width) {
+        return;
+    }
+
+    int radius = (kernel_size - 1) / 2;
+    float accumulated_value = 0.0f;
+    
+    for (int kernel_row = 0; kernel_row < kernel_size; ++kernel_row) 
+    {
+        int input_row = row + kernel_row - radius;
+        if (input_row < 0 || input_row >= height) continue;
+        int input_row_start = static_cast<size_t>(batch_index) * height * width + static_cast<size_t>(input_row) * width;   // removed the extra calculations for flattening 3d coords in every iteration
+        #pragma unroll                                               
+        for (int kernel_col = 0; kernel_col < kernel_size; ++kernel_col) 
+        {
+            int input_col = col + kernel_col - radius;
+            if (input_col < 0 || input_col >= width) continue;
+            float input_pixel = __ldg(&input_images[input_row_start + input_col]);
+            float kernel_weight = kernel[kernel_row * kernel_size + kernel_col];
+            accumulated_value += input_pixel * kernel_weight;
+        }
+    }
+
+    output_images[idx3(batch_index, row, col, height, width)] = accumulated_value;
+}
+
+
+void conv2d_variant1(const float* input, 
+                     const float* kernel, 
+                     float* output,
+                     int batch_size, 
+                     int height, 
+                     int width, 
+                     int kernel_size,
                      cudaStream_t stream) {
-    // TODO: Configure and launch your kernel
+    
+    dim3 threads_per_block(32, 8, 1);  // maintain the same occupancy (256 threads per block) but make sure each warp writes to same contiguous chunk of output array (of 32 pixels)
 
-    // Your code here
+    dim3 blocks_per_grid(
+        (width + threads_per_block.x - 1) / threads_per_block.x,
+        (height + threads_per_block.y - 1) / threads_per_block.y,
+        batch_size
+    );
+
+    kernel_conv2d_variant1<<<blocks_per_grid, threads_per_block, 0, stream>>>(
+        input, kernel, output, batch_size, height, width, kernel_size
+    );
 }
 
 // =============================================================================
@@ -136,13 +217,6 @@ void conv2d_variant1(const float* input, const float* kernel, float* output,
 // =============================================================================
 
 
-void conv2d_variant2(const float* input, const float* kernel, float* output,
-                     int batch_size, int height, int width, int kernel_size,
-                     cudaStream_t stream) {
-
-    // Your code here
-}
-
 // =============================================================================
 // VARIANT 3: REGISTER-LEVEL OPTIMIZATION AND DATA LOCALITY
 // =============================================================================
@@ -174,12 +248,50 @@ void conv2d_variant2(const float* input, const float* kernel, float* output,
 // =============================================================================
 
 
-void conv2d_variant3(const float* input, const float* kernel, float* output,
-                     int batch_size, int height, int width, int kernel_size,
-                     cudaStream_t stream) {
 
-    // Your code here
-}
+//  Will have to use the modified main.cu and other relevant files
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// =============================================================================
+// BONUS ROUND
+// =============================================================================
 
 // =============================================================================
 // BONUS: MULTI-STREAM CONCURRENT EXECUTION
@@ -204,19 +316,17 @@ void conv2d_variant3(const float* input, const float* kernel, float* output,
 //
 // =============================================================================
 
+/*
 
-void conv2d_variant4(const float* input, const float* kernel, float* output,
-                     int batch_size, int height, int width, int kernel_size,
-                     cudaStream_t stream) {
-    // TODO: Configure and launch
+nsys profile \
+    --trace=cuda,osrt,nvtx \
+    --cuda-memory-usage=true \
+    --force-overwrite=true \
+    -o variant2_nsys \
+    ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=variant2 --iters=1
 
-    // Your code here
-}
 
-// =============================================================================
-// BONUS ROUND
-// =============================================================================
-
+*/
 
 void conv2d_bonus(const float* input, const float* kernel1, const float* kernel2,
                   float* output, int batch_size, int height, int width,
