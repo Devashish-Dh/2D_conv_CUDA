@@ -1,0 +1,142 @@
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ nsys profile     --trace=cuda,osrt,nvtx     --cuda-memory-usage=true     --force-overwrite=true     -o naive  ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=naive --iters=1
+WARNING: CPU IP/backtrace sampling not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+WARNING: CPU context switch tracing not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+Generated random images: batch=16 height=2048 width=2048
+
+========== BENCHMARK: naive ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=1
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+Running timed iterations...
+  Iteration 1: 37.6044 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: naive
+Average time:   37.6044 ms
+Min time:       37.6044 ms
+Max time:       37.6044 ms
+Throughput:     1784.60 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+Generating '/data/home/devashishd/ncu_tmp/nsys-report-0316.qdstrm'
+[1/1] [========================100%] naive.nsys-rep
+Generated:
+    /data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/naive.nsys-rep
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ nsys profile     --trace=cuda,osrt,nvtx     --cuda-memory-usage=true     --force-overwrite=true     -o variant1  ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=variant1 --iters=1
+WARNING: CPU IP/backtrace sampling not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+WARNING: CPU context switch tracing not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+Generated random images: batch=16 height=2048 width=2048
+
+========== BENCHMARK: variant1 ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=1
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+Running timed iterations...
+  Iteration 1: 9.0926 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: variant1
+Average time:   9.0926 ms
+Min time:       9.0926 ms
+Max time:       9.0926 ms
+Throughput:     7380.57 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+Generating '/data/home/devashishd/ncu_tmp/nsys-report-0463.qdstrm'
+[1/1] [========================100%] variant1.nsys-rep
+Generated:
+    /data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/variant1.nsys-rep
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ nsys profile     --trace=cuda,osrt,nvtx     --cuda-memory-usage=true     --force-overwrite=true     -o variant2  ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=variant2 --iters=1
+WARNING: CPU IP/backtrace sampling not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+WARNING: CPU context switch tracing not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+Generated random images: batch=16 height=2048 width=2048
+
+========== BENCHMARK: variant2 ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=1
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+Running timed iterations...
+  Iteration 1: 4.8466 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: variant2
+Average time:   4.8466 ms
+Min time:       4.8466 ms
+Max time:       4.8466 ms
+Throughput:     13846.70 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+Generating '/data/home/devashishd/ncu_tmp/nsys-report-0c2e.qdstrm'
+[1/1] [========================100%] variant2.nsys-rep
+Generated:
+    /data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/variant2.nsys-rep
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ nsys profile     --trace=cuda,osrt,nvtx     --cuda-memory-usage=true     --force-overwrite=true     -o variant3  ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=variant3 --iters=1
+WARNING: CPU IP/backtrace sampling not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+WARNING: CPU context switch tracing not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+Generated random images: batch=16 height=2048 width=2048
+
+========== BENCHMARK: variant3 ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=1
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+Running timed iterations...
+  Iteration 1: 2.0584 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: variant3
+Average time:   2.0584 ms
+Min time:       2.0584 ms
+Max time:       2.0584 ms
+Throughput:     32601.93 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+Generating '/data/home/devashishd/ncu_tmp/nsys-report-824e.qdstrm'
+[1/1] [========================100%] variant3.nsys-rep
+Generated:
+    /data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/variant3.nsys-rep
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ nsys profile     --trace=cuda,osrt,nvtx     --cuda-memory-usage=true     --force-overwrite=true     -o variant4  ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=variant4 --iters=1
+WARNING: CPU IP/backtrace sampling not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+WARNING: CPU context switch tracing not supported, disabling.
+Try the 'nsys status --environment' command to learn more.
+
+Generated random images: batch=16 height=2048 width=2048
+Kernel is separable : Variant4 applicable, switching to 2-pass conv!
+
+========== BENCHMARK: variant4 ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=1
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+Running timed iterations...
+  Iteration 1: 1.7272 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: variant4
+Average time:   1.7272 ms
+Min time:       1.7272 ms
+Max time:       1.7272 ms
+Throughput:     38854.14 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+Generating '/data/home/devashishd/ncu_tmp/nsys-report-765d.qdstrm'
+[1/1] [========================100%] variant4.nsys-rep
+Generated:
+    /data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/variant4.nsys-rep
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ 

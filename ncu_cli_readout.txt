@@ -1,0 +1,2 @@
+ncu --import naive.ncu-rep --page details --print-summary per-kernel
+

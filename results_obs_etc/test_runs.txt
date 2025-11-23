@@ -1,0 +1,162 @@
+
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=naive --iters=10 --verify
+Generated random images: batch=16 height=2048 width=2048
+Computing CPU reference (this may take a while)...
+
+========== BENCHMARK: naive ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=10
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+Running timed iterations...
+  Iteration 1: 37.5992 ms
+  Iteration 2: 37.5951 ms
+  Iteration 3: 37.5992 ms
+  Iteration 4: 37.5962 ms
+  Iteration 5: 37.5992 ms
+  Iteration 6: 37.5972 ms
+  Iteration 7: 37.5982 ms
+  Iteration 8: 37.6013 ms
+  Iteration 9: 37.5972 ms
+  Iteration 10: 37.5982 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: naive
+Average time:   37.5981 ms
+Min time:       37.5951 ms
+Max time:       37.6013 ms
+Throughput:     1784.90 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+========== VERIFICATION ==========
+Maximum absolute difference vs CPU: 0.00000024
+✓ PASS: Results match CPU reference
+
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=variant1 --iters=10 --verify
+Generated random images: batch=16 height=2048 width=2048
+Computing CPU reference (this may take a while)...
+
+========== BENCHMARK: variant1 ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=10
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+Running timed iterations...
+  Iteration 1: 9.0501 ms
+  Iteration 2: 9.0481 ms
+  Iteration 3: 9.0481 ms
+  Iteration 4: 9.0491 ms
+  Iteration 5: 9.0481 ms
+  Iteration 6: 9.0501 ms
+  Iteration 7: 9.0481 ms
+  Iteration 8: 9.0470 ms
+  Iteration 9: 9.0481 ms
+  Iteration 10: 9.0470 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: variant1
+Average time:   9.0484 ms
+Min time:       9.0470 ms
+Max time:       9.0501 ms
+Throughput:     7416.68 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+========== VERIFICATION ==========
+Maximum absolute difference vs CPU: 0.00000024
+✓ PASS: Results match CPU reference
+
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=variant2 --iters=10 --verify
+Generated random images: batch=16 height=2048 width=2048
+Computing CPU reference (this may take a while)...
+
+========== BENCHMARK: variant2 ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=10
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+Running timed iterations...
+  Iteration 1: 4.8128 ms
+  Iteration 2: 4.8108 ms
+  Iteration 3: 4.8118 ms
+  Iteration 4: 4.8097 ms
+  Iteration 5: 4.8108 ms
+  Iteration 6: 4.8097 ms
+  Iteration 7: 4.8108 ms
+  Iteration 8: 4.8097 ms
+  Iteration 9: 4.8097 ms
+  Iteration 10: 4.8108 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: variant2
+Average time:   4.8106 ms
+Min time:       4.8097 ms
+Max time:       4.8128 ms
+Throughput:     13950.06 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+========== VERIFICATION ==========
+Maximum absolute difference vs CPU: 0.00000024
+✓ PASS: Results match CPU reference
+
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=variant3 --iters=10 --verify
+Generated random images: batch=16 height=2048 width=2048
+Computing CPU reference (this may take a while)...
+
+========== BENCHMARK: variant3 ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=10
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+Running timed iterations...
+  Iteration 1: 2.0521 ms
+  Iteration 2: 2.0511 ms
+  Iteration 3: 2.0511 ms
+  Iteration 4: 2.0511 ms
+  Iteration 5: 2.0500 ms
+  Iteration 6: 2.0500 ms
+  Iteration 7: 2.0490 ms
+  Iteration 8: 2.0500 ms
+  Iteration 9: 2.0500 ms
+  Iteration 10: 2.0500 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: variant3
+Average time:   2.0505 ms
+Min time:       2.0490 ms
+Max time:       2.0521 ms
+Throughput:     32728.72 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+========== VERIFICATION ==========
+Maximum absolute difference vs CPU: 0.00000024
+✓ PASS: Results match CPU reference
+
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=variant4 --iters=10 --verify
+Generated random images: batch=16 height=2048 width=2048
+Computing CPU reference (this may take a while)...
+Kernel is separable : Variant4 applicable, switching to 2-pass conv!
+
+========== BENCHMARK: variant4 ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=10
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+Running timed iterations...
+  Iteration 1: 1.7029 ms
+  Iteration 2: 1.7029 ms
+  Iteration 3: 1.7070 ms
+  Iteration 4: 1.7039 ms
+  Iteration 5: 1.7029 ms
+  Iteration 6: 1.7029 ms
+  Iteration 7: 1.7050 ms
+  Iteration 8: 1.7009 ms
+  Iteration 9: 1.7029 ms
+  Iteration 10: 1.7050 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: variant4
+Average time:   1.7036 ms
+Min time:       1.7009 ms
+Max time:       1.7070 ms
+Throughput:     39391.71 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+========== VERIFICATION ==========
+Maximum absolute difference vs CPU: 0.00000060
+✓ PASS: Results match CPU reference
+

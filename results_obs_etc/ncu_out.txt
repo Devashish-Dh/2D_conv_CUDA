@@ -1,0 +1,135 @@
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ ncu --set full -o naive.ncu-rep \
+    ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=naive --iters=1
+Generated random images: batch=16 height=2048 width=2048
+==PROF== Connected to process 1679964 (/data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/gpu_conv)
+
+========== BENCHMARK: naive ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=1
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+==PROF== Profiling "kernel_conv2d_baseline" - 0: 0%
+==WARNING== Launching the workload is taking more time than expected. If this continues to hang, terminate the profile and re-try by profiling the range of all related launches using '--replay-mode range'. See https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#replay for more details.
+....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_baseline" - 1: 0%....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_baseline" - 2: 0%....50%....100% - 42 passes
+Running timed iterations...
+==PROF== Profiling "kernel_conv2d_baseline" - 3: 0%....50%....100% - 42 passes
+  Iteration 1: 7975.0449 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: naive
+Average time:   7975.0449 ms
+Min time:       7975.0449 ms
+Max time:       7975.0449 ms
+Throughput:     8.41 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+==PROF== Disconnected from process 1679964
+==PROF== Report: /data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/naive.ncu-rep
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ ncu --set full -o variant1.ncu-rep     ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=variant1 --iters=1
+Generated random images: batch=16 height=2048 width=2048
+==PROF== Connected to process 1680705 (/data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/gpu_conv)
+
+========== BENCHMARK: variant1 ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=1
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+==PROF== Profiling "kernel_conv2d_variant1" - 0: 0%
+==WARNING== Launching the workload is taking more time than expected. If this continues to hang, terminate the profile and re-try by profiling the range of all related launches using '--replay-mode range'. See https://docs.nvidia.com/nsight-compute/ProfilingGuide/index.html#replay for more details.
+....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_variant1" - 1: 0%....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_variant1" - 2: 0%....50%....100% - 42 passes
+Running timed iterations...
+==PROF== Profiling "kernel_conv2d_variant1" - 3: 0%....50%....100% - 42 passes
+  Iteration 1: 7541.2715 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: variant1
+Average time:   7541.2715 ms
+Min time:       7541.2715 ms
+Max time:       7541.2715 ms
+Throughput:     8.90 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+==PROF== Disconnected from process 1680705
+==PROF== Report: /data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/variant1.ncu-rep
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ ncu --set full -o variant2.ncu-rep     ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=variant2 --iters=1
+Generated random images: batch=16 height=2048 width=2048
+==PROF== Connected to process 1681354 (/data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/gpu_conv)
+
+========== BENCHMARK: variant2 ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=1
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+==PROF== Profiling "kernel_conv2d_variant2" - 0: 0%....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_variant2" - 1: 0%....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_variant2" - 2: 0%....50%....100% - 42 passes
+Running timed iterations...
+==PROF== Profiling "kernel_conv2d_variant2" - 3: 0%....50%....100% - 42 passes
+  Iteration 1: 4826.2207 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: variant2
+Average time:   4826.2207 ms
+Min time:       4826.2207 ms
+Max time:       4826.2207 ms
+Throughput:     13.91 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+==PROF== Disconnected from process 1681354
+==PROF== Report: /data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/variant2.ncu-rep
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ ncu --set full -o variant3.ncu-rep     ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=variant3 --iters=1
+Generated random images: batch=16 height=2048 width=2048
+==PROF== Connected to process 1681962 (/data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/gpu_conv)
+
+========== BENCHMARK: variant3 ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=1
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+==PROF== Profiling "kernel_conv2d_variant3" - 0: 0%....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_variant3" - 1: 0%....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_variant3" - 2: 0%....50%....100% - 42 passes
+Running timed iterations...
+==PROF== Profiling "kernel_conv2d_variant3" - 3: 0%....50%....100% - 42 passes
+  Iteration 1: 3210.5952 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: variant3
+Average time:   3210.5952 ms
+Min time:       3210.5952 ms
+Max time:       3210.5952 ms
+Throughput:     20.90 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+==PROF== Disconnected from process 1681962
+==PROF== Report: /data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/variant3.ncu-rep
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ ncu --set full -o variant4.ncu-rep     ./gpu_conv --n=16 --h=2048 --w=2048 --k=11 --impl=variant4 --iters=1
+Generated random images: batch=16 height=2048 width=2048
+==PROF== Connected to process 1682558 (/data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/gpu_conv)
+Kernel is separable : Variant4 applicable, switching to 2-pass conv!
+
+========== BENCHMARK: variant4 ==========
+Configuration: N=16, H=2048, W=2048, k=11, iters=1
+Total pixels per iteration: 67.11 MPix
+Running warmup...
+==PROF== Profiling "kernel_conv2d_variant4_row" - 0: 0%....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_variant4_col" - 1: 0%....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_variant4_row" - 2: 0%....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_variant4_col" - 3: 0%....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_variant4_row" - 4: 0%....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_variant4_col" - 5: 0%....50%....100% - 42 passes
+Running timed iterations...
+==PROF== Profiling "kernel_conv2d_variant4_row" - 6: 0%....50%....100% - 42 passes
+==PROF== Profiling "kernel_conv2d_variant4_col" - 7: 0%....50%....100% - 42 passes
+  Iteration 1: 5288.3076 ms
+
+========== RESULTS ==========
+IMPLEMENTATION: variant4
+Average time:   5288.3076 ms
+Min time:       5288.3076 ms
+Max time:       5288.3076 ms
+Throughput:     12.69 MPix/s
+Ops per pixel:  121 (kernel size 11x11)
+
+==PROF== Disconnected from process 1682558
+==PROF== Report: /data/home/devashishd/assignment_files/hpca-gpu-assignment-2025/variant4.ncu-rep

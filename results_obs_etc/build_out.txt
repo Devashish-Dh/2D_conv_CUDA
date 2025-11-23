@@ -1,0 +1,144 @@
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ make clean && make
+rm -f gpu_conv gpu_conv_debug src/main.o src/utils.o src/conv_kernels.o src/cpu_reference.o src/var4help.o *.ncu-rep *.nsys-rep
+/usr/local/cuda/bin/nvcc -O3 -std=c++17 -lineinfo --use_fast_math --ptxas-options=-v -gencode arch=compute_61,code=sm_61 -gencode arch=compute_70,code=sm_70 -gencode arch=compute_75,code=sm_75 -gencode arch=compute_80,code=sm_80 -gencode arch=compute_86,code=sm_86 -Iinclude -Isrc -I/usr/include/eigen3  -c src/main.cu -o src/main.o
+ptxas info    : 0 bytes gmem, 1152 bytes cmem[3]
+ptxas info    : Compiling entry function '_Z26kernel_conv2d_variant4_colPKfPfiiii' for 'sm_61'
+ptxas info    : Function properties for _Z26kernel_conv2d_variant4_colPKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 352 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z26kernel_conv2d_variant4_rowPKfPfiiii' for 'sm_61'
+ptxas info    : Function properties for _Z26kernel_conv2d_variant4_rowPKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 352 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant3PKfPfiiii' for 'sm_61'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant3PKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 352 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant2PKfPfiiii' for 'sm_61'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant2PKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 27 registers, 352 bytes cmem[0]
+ptxas info    : 0 bytes gmem, 1152 bytes cmem[3]
+ptxas info    : Compiling entry function '_Z26kernel_conv2d_variant4_colPKfPfiiii' for 'sm_70'
+ptxas info    : Function properties for _Z26kernel_conv2d_variant4_colPKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z26kernel_conv2d_variant4_rowPKfPfiiii' for 'sm_70'
+ptxas info    : Function properties for _Z26kernel_conv2d_variant4_rowPKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 37 registers, 384 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant3PKfPfiiii' for 'sm_70'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant3PKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant2PKfPfiiii' for 'sm_70'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant2PKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 31 registers, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : 0 bytes gmem, 1152 bytes cmem[3]
+ptxas info    : Compiling entry function '_Z26kernel_conv2d_variant4_colPKfPfiiii' for 'sm_75'
+ptxas info    : Function properties for _Z26kernel_conv2d_variant4_colPKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 54 registers, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z26kernel_conv2d_variant4_rowPKfPfiiii' for 'sm_75'
+ptxas info    : Function properties for _Z26kernel_conv2d_variant4_rowPKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 38 registers, 384 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant3PKfPfiiii' for 'sm_75'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant3PKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 44 registers, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant2PKfPfiiii' for 'sm_75'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant2PKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 31 registers, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : 0 bytes gmem, 1152 bytes cmem[3]
+ptxas info    : Compiling entry function '_Z26kernel_conv2d_variant4_colPKfPfiiii' for 'sm_80'
+ptxas info    : Function properties for _Z26kernel_conv2d_variant4_colPKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z26kernel_conv2d_variant4_rowPKfPfiiii' for 'sm_80'
+ptxas info    : Function properties for _Z26kernel_conv2d_variant4_rowPKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 384 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant3PKfPfiiii' for 'sm_80'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant3PKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant2PKfPfiiii' for 'sm_80'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant2PKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 29 registers, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : 0 bytes gmem, 1152 bytes cmem[3]
+ptxas info    : Compiling entry function '_Z26kernel_conv2d_variant4_colPKfPfiiii' for 'sm_86'
+ptxas info    : Function properties for _Z26kernel_conv2d_variant4_colPKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 40 registers, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z26kernel_conv2d_variant4_rowPKfPfiiii' for 'sm_86'
+ptxas info    : Function properties for _Z26kernel_conv2d_variant4_rowPKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 37 registers, 384 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant3PKfPfiiii' for 'sm_86'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant3PKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 40 registers, 384 bytes cmem[0], 8 bytes cmem[2]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant2PKfPfiiii' for 'sm_86'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant2PKfPfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 33 registers, 384 bytes cmem[0], 8 bytes cmem[2]
+/usr/local/cuda/bin/nvcc -O3 -std=c++17 -lineinfo --use_fast_math --ptxas-options=-v -gencode arch=compute_61,code=sm_61 -gencode arch=compute_70,code=sm_70 -gencode arch=compute_75,code=sm_75 -gencode arch=compute_80,code=sm_80 -gencode arch=compute_86,code=sm_86 -Iinclude -Isrc -I/usr/include/eigen3  -c src/utils.cu -o src/utils.o
+ptxas info    : 0 bytes gmem
+ptxas info    : 0 bytes gmem
+ptxas info    : 0 bytes gmem
+ptxas info    : 0 bytes gmem
+ptxas info    : 0 bytes gmem
+/usr/local/cuda/bin/nvcc -O3 -std=c++17 -lineinfo --use_fast_math --ptxas-options=-v -gencode arch=compute_61,code=sm_61 -gencode arch=compute_70,code=sm_70 -gencode arch=compute_75,code=sm_75 -gencode arch=compute_80,code=sm_80 -gencode arch=compute_86,code=sm_86 -Iinclude -Isrc -I/usr/include/eigen3  -c src/conv_kernels.cu -o src/conv_kernels.o
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant1PKfS0_Pfiiii' for 'sm_61'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant1PKfS0_Pfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 360 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_baselinePKfS0_Pfiiii' for 'sm_61'
+ptxas info    : Function properties for _Z22kernel_conv2d_baselinePKfS0_Pfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 360 bytes cmem[0]
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant1PKfS0_Pfiiii' for 'sm_70'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant1PKfS0_Pfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 31 registers, 392 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_baselinePKfS0_Pfiiii' for 'sm_70'
+ptxas info    : Function properties for _Z22kernel_conv2d_baselinePKfS0_Pfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 392 bytes cmem[0]
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant1PKfS0_Pfiiii' for 'sm_75'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant1PKfS0_Pfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 31 registers, 392 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_baselinePKfS0_Pfiiii' for 'sm_75'
+ptxas info    : Function properties for _Z22kernel_conv2d_baselinePKfS0_Pfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 40 registers, 392 bytes cmem[0]
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant1PKfS0_Pfiiii' for 'sm_80'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant1PKfS0_Pfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 31 registers, 392 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_baselinePKfS0_Pfiiii' for 'sm_80'
+ptxas info    : Function properties for _Z22kernel_conv2d_baselinePKfS0_Pfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 32 registers, 392 bytes cmem[0]
+ptxas info    : 0 bytes gmem
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_variant1PKfS0_Pfiiii' for 'sm_86'
+ptxas info    : Function properties for _Z22kernel_conv2d_variant1PKfS0_Pfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 31 registers, 392 bytes cmem[0]
+ptxas info    : Compiling entry function '_Z22kernel_conv2d_baselinePKfS0_Pfiiii' for 'sm_86'
+ptxas info    : Function properties for _Z22kernel_conv2d_baselinePKfS0_Pfiiii
+    0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
+ptxas info    : Used 40 registers, 392 bytes cmem[0]
+/usr/local/cuda/bin/nvcc -O3 -std=c++17 -lineinfo --use_fast_math --ptxas-options=-v -gencode arch=compute_61,code=sm_61 -gencode arch=compute_70,code=sm_70 -gencode arch=compute_75,code=sm_75 -gencode arch=compute_80,code=sm_80 -gencode arch=compute_86,code=sm_86 -Iinclude -Isrc -I/usr/include/eigen3  -c src/cpu_reference.cpp -o src/cpu_reference.o
+/usr/local/cuda/bin/nvcc -O3 -std=c++17 -lineinfo --use_fast_math --ptxas-options=-v -gencode arch=compute_61,code=sm_61 -gencode arch=compute_70,code=sm_70 -gencode arch=compute_75,code=sm_75 -gencode arch=compute_80,code=sm_80 -gencode arch=compute_86,code=sm_86 -Iinclude -Isrc -I/usr/include/eigen3  -c src/var4help.cpp -o src/var4help.o
+/usr/local/cuda/bin/nvcc -O3 -std=c++17 -lineinfo --use_fast_math --ptxas-options=-v -gencode arch=compute_61,code=sm_61 -gencode arch=compute_70,code=sm_70 -gencode arch=compute_75,code=sm_75 -gencode arch=compute_80,code=sm_80 -gencode arch=compute_86,code=sm_86 -Iinclude -Isrc -I/usr/include/eigen3  -o gpu_conv src/main.o src/utils.o src/conv_kernels.o src/cpu_reference.o src/var4help.o
+devashishd@csrmaster:~/assignment_files/hpca-gpu-assignment-2025$ 
